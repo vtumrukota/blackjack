@@ -9,7 +9,11 @@ class window.CardView extends Backbone.View
     @$el.children().detach()
     @$el.html @template @model.attributes
     @$el.addClass 'covered' unless @model.get 'revealed'
+    @cardImage()
 
+  cardImage: ->
+    cardName = @model.get 'rankName' + '-' + @model.get 'suitName' + '.png'
 
+    @$el.append('<img src=<%= /cardName %>/>');
 #View for individual cards
 

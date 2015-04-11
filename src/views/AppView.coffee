@@ -10,10 +10,11 @@ class window.AppView extends Backbone.View
     #'click .startGame-button': -> @model.get('playerHand').hit()
 
   initialize: ->
-    @on 'add remove change', => @render()
+    @listenTo @model, 'change', @render
     @render()
 
   render: ->
+    console.log 'render in app'
     @$el.children().detach()
     @$el.html @template()
     # @$('.player-container').html new PlayerView(collection: @model.get 'player').el
