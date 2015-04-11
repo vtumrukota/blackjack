@@ -15,3 +15,4 @@ class window.Card extends Backbone.Model
     @set 'revealed', !@get 'revealed'
     @
 
+#Allows you to select appropriate card image to display on screen

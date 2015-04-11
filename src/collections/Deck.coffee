@@ -11,3 +11,6 @@ class window.Deck extends Backbone.Collection
 
   dealDealer: -> new Hand [@pop().flip(), @pop()], @, true
 
+
+
+#Initializing the Deck and dealing hand to player + dealer
