@@ -7,9 +7,20 @@ class window.Deck extends Backbone.Collection
         rank: card % 13
         suit: Math.floor(card / 13)
 
-  dealPlayer: -> new Hand [@pop(), @pop()], @
+  dealPlayer: ->
+    playerhand = new Hand [@pop(), @pop()], @
+    @blackjack(playerhand)
+    playerhand
 
-  dealDealer: -> new Hand [@pop().flip(), @pop()], @, true
+  dealDealer: ->
+    dealerhand = new Hand [@pop().flip(), @pop()], @, true
+    @blackjack(dealerhand)
+    dealerhand
+
+  blackjack: (hand) ->
+    console.log "Ran Blackjack Test"
+    if hand.scores()[1] is 21
+      @trigger 'blackjack', @
 
 
 

@@ -10,15 +10,11 @@ class window.Hand extends Backbone.Collection
     # if score is over 21 then say no hit
     #if !@isBustedCalc()
 
-    if @isDealer
-      if scores[1] <= 17
-        @add(@deck.pop())
-    else
-      @add(@deck.pop())
-    if @isBustedCalc()
-      alert "BUST! Play Again!"
-      @trigger('bust', @)
 
+      if !@isBustedCalc()
+        @add(@deck.pop())
+        if @isBustedCalc()
+          @trigger 'bust', @
 
 
   isBustedCalc: ->
@@ -28,6 +24,7 @@ class window.Hand extends Backbone.Collection
       @scores()[0] > 21 && @scores()[1] > 21
 
   stand: ->
+    @trigger 'tallyScore', @
     # need to return scores[1] and switch to the dealer
 
 
@@ -36,7 +33,15 @@ class window.Hand extends Backbone.Collection
       # change current user to dealer.
     #if @isDealer
       # tally score and determine winner
+  playToWin: ->
+    @first().flip()
+    while(@scores()[0] <= 17)
+      @add(@deck.pop())
+      if !(@busted())
+        @stand()
 
+  busted: ->
+    @scores()[0] > 21
 
   double: ->
 
@@ -47,6 +52,11 @@ class window.Hand extends Backbone.Collection
   minScore: -> @reduce (score, card) ->
     score + if card.get 'revealed' then card.get 'value' else 0
   , 0
+
+  maxScore: ->
+    scores = @scores()
+    if scores[1] <= 21 then scores[1] else scores[0]
+
 
   scores: ->
     # The scores are an array of potential scores.

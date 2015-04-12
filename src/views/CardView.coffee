@@ -3,7 +3,8 @@ class window.CardView extends Backbone.View
 
   template: _.template '<% if(revealed){ %><img src= img/cards/<%= rankName %>-<%= suitName %>.png /><% }else{%><img src= img/card-back.png /><% }%>'
 
-  initialize: -> @render()
+  initialize: ->
+    @render()
 
   render: ->
     @$el.children().detach()

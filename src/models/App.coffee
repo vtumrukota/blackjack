@@ -4,20 +4,29 @@ class window.App extends Backbone.Model
   initialize: =>
     #@set 'player', #new player("Vivek")
     @set 'minBet', 25
-    @set 'game', game = new Game()
+    # @set 'game', game = null
     @set 'isGameEnded', false
-    @get ('game')
-      .on 'bust', @startGame, @
+
 
   #events: =>
 
   startGame: ->
-    console.log "Started New Game in AppModel"
     @set 'game', new Game()
     @set 'isGameEnded', true
     # @trigger 'newGame'
+    @get ('game')
+      .on 'bustInGame', @endGame
 
   endGame: ->
+    @trigger 'gameOver', @
+
+    #Display and Adjust Win/Loss
+    #Divy the Money
+    #
+
+#eliminate button functions
+
+
   # determines winners or loser
   # and affects players money.
 #Dealer Logic and creating the game environment

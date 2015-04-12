@@ -6,11 +6,31 @@ class window.Game extends Backbone.Model
     @set 'dealerHand', deck.dealDealer()
     @set 'isPlayerTurn', true
     @get ('playerHand')
-      .on 'bust', => @trigger('bust')
+      .on('bust', @bust, @)
+    # @get ('playerHand')
+    #   .on('blackjack', -> alert "BLACKJACK!!!!")
+    @get ('dealerHand')
+      .on('bust', @bust, @)
+    # @get ('dealerHand')
+    #   .on('blackjack', -> alert "BLACKJACK!!!!")
+    @get ('dealerHand')
+      .on 'tallyScore', @determineWinner, @
 
 
   bust: ->
-    @trigger('bust', @)
+    console.log "BUST BROKE"
+    console.log @
+    @trigger 'bustInGame', @
+
+  determineWinner: ->
+    playerScore = @get('playerHand').maxScore()
+    dealerScore = @get('dealerHand').maxScore()
+
+    alert 'You Win!' unless playerScore > dealerScore
+    alert 'You Lose!' unless playerScore < dealerScore
+    alert 'Push' unless playerScore is dealerScore
+    #Freeze functionality of other buttons once done
+    #Wait for user to hit Start Game
 
 
 

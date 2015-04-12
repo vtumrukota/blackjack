@@ -12,8 +12,8 @@ class window.GameView extends Backbone.View
   events:
     'click .hit-button': -> @model.get('playerHand').hit()
     'click .stand-button': ->
-      @model.get('playerHand').stand()
-      @model.get('dealerHand').hit()
+      #@model.get('playerHand').stand()
+      @model.get('dealerHand').playToWin()
     'click .double-button': -> @model.get('playerHand').double()
 
   initialize: ->
@@ -28,4 +28,6 @@ class window.GameView extends Backbone.View
     @$('.dealer-hand-container').html new HandView(collection: @model.get 'dealerHand').el
 
 
+  busted: ->
+    alert "GAME OVER"
 #Creating buttons and event listeners and rendering Player/Dealer
